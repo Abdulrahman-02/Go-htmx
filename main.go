@@ -28,11 +28,16 @@ func main() {
 		// Render the template
 		tmpl := template.Must(template.ParseFiles("index.htm"))
 		tmpl.Execute(w, films)
-
-		// io.WriteString(w,"Go-htmx \n")
-		// io.WriteString(w,r.Method)
 	}
-	http.HandleFunc("/", handler1)
 
+	handler2 := func(w http.ResponseWriter, r *http.Request) {
+		title := r.PostFormValue("title")
+		director := r.PostFormValue("director")
+		tmpl := template.Must(template.ParseFiles("index.htm"))
+		tmpl.ExecuteTemplate(w, "film-list-element", Film{Title: title, Director: director})
+	}
+
+	http.HandleFunc("/", handler1)
+	http.HandleFunc("/add-film/",handler2)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
