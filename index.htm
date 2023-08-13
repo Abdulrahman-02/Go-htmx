@@ -7,10 +7,11 @@
 </head>
 <body>
     <h1>GO-HTMX</h1>
+    <h2>Film List</h2>
     {{range.Films}}
         <div>
-            <h2>{{.Title}}</h2>
-            <p>{{.Description}}</p>
+            <h3>{{.Title}}</h3>
+            <p>{{.Director}}</p>
         </div>
     {{end}}
 </body>
